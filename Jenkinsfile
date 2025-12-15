@@ -1,14 +1,11 @@
 pipeline {
     agent any
-    environment {
-        AWS_REGION = "us-east-1"
-    }
 
     stages {
         stage('Terraform Init') {
             steps {
                 withCredentials([usernamePassword(
-                    credentialsId: 'aws-creds',
+                    credentialsId: 'aws_creds',   // <-- FIXED HERE
                     usernameVariable: 'AWS_ACCESS_KEY_ID',
                     passwordVariable: 'AWS_SECRET_ACCESS_KEY'
                 )]) {
@@ -20,7 +17,7 @@ pipeline {
         stage('Terraform Plan') {
             steps {
                 withCredentials([usernamePassword(
-                    credentialsId: 'aws-creds',
+                    credentialsId: 'aws_creds',   // <-- FIXED HERE
                     usernameVariable: 'AWS_ACCESS_KEY_ID',
                     passwordVariable: 'AWS_SECRET_ACCESS_KEY'
                 )]) {
@@ -32,7 +29,7 @@ pipeline {
         stage('Terraform Apply') {
             steps {
                 withCredentials([usernamePassword(
-                    credentialsId: 'aws-creds',
+                    credentialsId: 'aws_creds',   // <-- FIXED HERE
                     usernameVariable: 'AWS_ACCESS_KEY_ID',
                     passwordVariable: 'AWS_SECRET_ACCESS_KEY'
                 )]) {
@@ -42,3 +39,4 @@ pipeline {
         }
     }
 }
+
